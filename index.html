@@ -209,6 +209,14 @@
       background: var(--photo-vignette);
     }
 
+    /* Horizontal S-curve (mobile only) — hidden on desktop */
+    .hero-divider-mobile {
+      display: none;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 2;
+    }
+
     /* Decorative S-curve line that traces the diagonal edge */
     .hero-divider {
       position: absolute; inset: 0;
@@ -593,13 +601,8 @@
         top: auto; bottom: auto; right: auto; left: auto;
         flex-shrink: 0;
       }
-      /* Only a bottom fade — no side or top gradient needed */
-      .hero-photo::before {
-        background: linear-gradient(to bottom,
-          transparent 45%,
-          rgba(var(--bg-rgb), .9) 80%,
-          rgba(var(--bg-rgb), 1) 100%);
-      }
+      /* Bottom edge is the S-curve clip — no gradient needed */
+      .hero-photo::before { display: none; }
 
       /* Content sits below image with breathing room */
       #hero > .w {
@@ -619,10 +622,12 @@
         max-width: 100%;
       }
 
-      /* Hide decorative elements that don't work at this size */
+      /* Hide desktop decorative elements; show mobile S-curve */
       .hero-frame-line { display: none; }
       .hero-divider { display: none; }
-      .hero-photo { clip-path: none; }
+      .hero-divider-mobile { display: block; }
+      /* Clip photo above the horizontal S-curve */
+      .hero-photo { clip-path: url(#photo-clip-mobile); }
       .scroll-cue { display: none; }
       .blob { display: none; }
     }
@@ -633,14 +638,23 @@
 <!-- ── NAV ──────────────────────────────────────────────────────────── -->
 <!-- SVG clip-path that matches the decorative S-curve exactly.
      objectBoundingBox coords: x = (viewport% - 48) / 52, y = viewport% / 100
-     (photo sits at right:0 width:52%, so its left edge is at 48% viewport) -->
+     (photo sits at right:0 width:52%, so its left edge is at 48% viewport)
+
+     Mobile clip: horizontal S-curve near photo bottom (y≈87%),
+     objectBoundingBox coords (0-1): photo is full-width so x maps 1:1 -->
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <defs>
+    <!-- Desktop: clip photo to right of vertical S-curve -->
     <clipPath id="photo-clip" clipPathUnits="objectBoundingBox">
       <path d="M 0.1096 0
                C 0.1923 0.18, -0.0962 0.38, 0.0769 0.55
                C 0.25   0.72, -0.0385 0.86,  0.0096 1
                L 1 1 L 1 0 Z"/>
+    </clipPath>
+    <!-- Mobile: clip photo above horizontal S-curve -->
+    <clipPath id="photo-clip-mobile" clipPathUnits="objectBoundingBox">
+      <path d="M 0 0 L 1 0 L 1 0.87
+               C 0.70 0.94, 0.30 0.80, 0 0.87 Z"/>
     </clipPath>
   </defs>
 </svg>
@@ -668,6 +682,11 @@
   <!-- Full-bleed photo, right half, diagonal cut left edge -->
   <div class="hero-photo">
     <img src="alona.png" alt="Alona Korober" />
+    <!-- Horizontal S-curve gold line shown only on mobile -->
+    <svg class="hero-divider-mobile" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M 0 87 C 30 80, 70 94, 100 87"
+            fill="none" stroke="var(--gold)" stroke-width="0.4" stroke-opacity="0.55"/>
+    </svg>
   </div>
 
   <!-- Decorative S-curve traces the diagonal edge of the photo.
