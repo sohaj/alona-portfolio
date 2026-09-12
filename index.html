@@ -142,9 +142,21 @@
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 14px; font-weight: 600; color: var(--text);
-      opacity: 0; transition: opacity .3s;
+      white-space: nowrap;
+      /* collapsed — takes no space, links sit at left edge */
+      max-width: 0; overflow: hidden; opacity: 0;
+      transform: translateX(-8px);
+      transition:
+        max-width .46s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity   .32s ease,
+        transform .32s ease;
     }
-    #nav.pinned .nav-logo { opacity: 1; }
+    /* expanded — pushes links right as it grows */
+    #nav.pinned .nav-logo {
+      max-width: 220px;
+      opacity: 1;
+      transform: translateX(0);
+    }
     .nav-links { display: flex; gap: 24px; }
     .nav-links a {
       font-family: 'Space Grotesk', sans-serif;
