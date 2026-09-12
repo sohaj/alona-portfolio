@@ -163,10 +163,11 @@
       font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text-2); text-decoration: none;
-      transition: color .2s; position: relative; padding-bottom: 2px;
+      transition: color .2s; position: relative;
+      display: inline-flex; align-items: center; line-height: 1;
     }
     .nav-links a::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
       height: 1px; background: var(--gold);
       transform: scaleX(0); transition: transform .22s;
     }
@@ -630,7 +631,7 @@
         <a href="#experience">Experience</a>
         <a href="#credentials">Education</a>
         <a href="#references">References</a>
-        <a href="mailto:Alona.korober@gmail.com" style="border:1px solid var(--border-g);padding:5px 14px;border-radius:100px;color:var(--gold)">Contact</a>
+        <a href="mailto:Alona.korober@gmail.com" style="border:1px solid var(--border-g);padding:6px 16px;border-radius:100px;color:var(--gold);display:inline-flex;align-items:center;line-height:1;">Contact</a>
       </div>
     </div>
   </div>
