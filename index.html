@@ -188,25 +188,32 @@
       position: absolute;
       right: 0; top: 0; bottom: 0; width: 52%;
       overflow: hidden; pointer-events: none; z-index: 0;
+      /* diagonal left edge — top starts at 11%, bottom flush */
+      clip-path: polygon(11% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
     .hero-photo img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 12%;
       display: block;
     }
-    /* seamless fade: left edge blends to bg, bottom fades out */
+    /* only bottom fade — left edge handled by clip-path + SVG line */
     .hero-photo::before {
       content: '';
       position: absolute; inset: 0; z-index: 1;
-      background:
-        linear-gradient(to right, rgba(var(--bg-rgb),1) 0%, rgba(var(--bg-rgb),.52) 38%, transparent 68%),
-        linear-gradient(to top,   rgba(var(--bg-rgb),1) 0%, transparent 28%);
+      background: linear-gradient(to top, rgba(var(--bg-rgb),1) 0%, transparent 28%);
     }
     /* subtle vignette over image */
     .hero-photo::after {
       content: '';
       position: absolute; inset: 0; z-index: 2;
       background: var(--photo-vignette);
+    }
+
+    /* Decorative S-curve line that traces the diagonal edge */
+    .hero-divider {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 4; pointer-events: none; overflow: visible;
     }
 
     .hero-frame-line { display: none; }
@@ -614,6 +621,8 @@
 
       /* Hide decorative elements that don't work at this size */
       .hero-frame-line { display: none; }
+      .hero-divider { display: none; }
+      .hero-photo { clip-path: none; }
       .scroll-cue { display: none; }
       .blob { display: none; }
     }
@@ -642,12 +651,23 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 
-  <!-- Full-bleed photo, right half, fades into background -->
+  <!-- Full-bleed photo, right half, diagonal cut left edge -->
   <div class="hero-photo">
     <img src="alona.png" alt="Alona Korober" />
   </div>
-  <!-- Subtle vertical gold accent line -->
-  <div class="hero-frame-line"></div>
+
+  <!-- Decorative S-curve traces the diagonal edge of the photo.
+       viewBox 0 0 100 100 → coords are % of hero size.
+       Line goes from ~53.7% at top (48% photo-left + 11%×52%) to ~48% at bottom. -->
+  <svg class="hero-divider" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path
+      d="M 53.7 0 C 58 18, 43 38, 52 55 C 61 72, 46 86, 48.5 100"
+      fill="none"
+      stroke="var(--gold)"
+      stroke-width="0.13"
+      stroke-opacity="0.55"
+    />
+  </svg>
 
   <div class="w">
     <div class="hero-inner">
