@@ -131,7 +131,14 @@
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-    .nav-row { display: flex; align-items: center; justify-content: space-between; }
+    /* Left-align nav with hero content */
+    #nav > .w {
+      max-width: 100%;
+      margin: 0;
+      padding-left: clamp(40px, 5vw, 80px);
+      padding-right: clamp(40px, 5vw, 80px);
+    }
+    .nav-row { display: flex; align-items: center; gap: 32px; justify-content: flex-start; }
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 14px; font-weight: 600; color: var(--text);
@@ -179,9 +186,8 @@
       content: '';
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(to right,  rgba(var(--bg-rgb),1) 0%, rgba(var(--bg-rgb),.52) 38%, transparent 68%),
-        linear-gradient(to top,    rgba(var(--bg-rgb),1) 0%, transparent 28%),
-        linear-gradient(to bottom, rgba(var(--bg-rgb),1) 0%, transparent 14%);
+        linear-gradient(to right, rgba(var(--bg-rgb),1) 0%, rgba(var(--bg-rgb),.52) 38%, transparent 68%),
+        linear-gradient(to top,   rgba(var(--bg-rgb),1) 0%, transparent 28%);
     }
     /* subtle vignette over image */
     .hero-photo::after {
