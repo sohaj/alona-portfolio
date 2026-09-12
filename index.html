@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alona Korober — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --surface-2: #f2f0ed;
+      --border: #e5e2dc;
+      --text: #1a1714;
+      --text-2: #4a4540;
+      --text-3: #8c8580;
+      --accent: #2c5f8a;
+      --accent-light: #e8f0f7;
+      --tag-bg: #ede9e4;
+      --tag-border: #d9d4cc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* ── Layout ── */
+    .wrapper { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .nav-name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-2); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.01em;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero { padding: 72px 0 56px; }
+    .hero-accent-bar {
+      width: 40px; height: 3px;
+      background: var(--accent); border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 58px);
+      font-weight: 600; line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-size: 15px; color: var(--text-2); font-weight: 500;
+      margin-bottom: 18px; line-height: 1.5;
+    }
+    .hero-contact {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      font-size: 13px; margin-bottom: 24px;
+    }
+    .hero-contact a { color: var(--accent); text-decoration: none; }
+    .hero-contact a:hover { text-decoration: underline; }
+    .hero-contact span { color: var(--text-3); }
+    .hero-tagline {
+      max-width: 620px; font-size: 15px; line-height: 1.7;
+      color: var(--text-2);
+      padding-left: 16px;
+      border-left: 3px solid var(--border);
+    }
+
+    /* ── Metrics ── */
+    .metrics { padding: 0 0 56px; }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .metric-value {
+      font-size: 34px; font-weight: 700;
+      color: var(--accent); line-height: 1;
+      margin-bottom: 6px;
+    }
+    .metric-label { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+    .metric-note { font-size: 12px; color: var(--text-3); }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 18px;
+    }
+
+    hr.divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Main layout ── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 48px;
+      align-items: start;
+      padding-bottom: 64px;
+    }
+
+    /* ── Skills ── */
+    .skills { margin-bottom: 48px; }
+    .skill-group { margin-bottom: 16px; }
+    .skill-group-label {
+      font-size: 12px; font-weight: 700;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px; border-radius: 4px;
+      font-size: 12px; font-weight: 500;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--text-2);
+    }
+
+    /* ── Experience ── */
+    .experience .section-label { margin-bottom: 24px; }
+    .job { margin-bottom: 28px; }
+    .job-header {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 12px; margin-bottom: 4px;
+    }
+    .job-company { font-weight: 700; font-size: 15px; }
+    .job-period { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+    .job-location { font-size: 12px; color: var(--text-3); margin-bottom: 14px; }
+
+    .role { margin-bottom: 10px; }
+    .role-header {
+      display: flex; justify-content: space-between;
+      align-items: center; cursor: pointer;
+      padding: 10px 14px;
+      background: var(--surface-2); border-radius: 6px;
+      border: 1px solid var(--border);
+      gap: 12px;
+    }
+    .role-header:hover { background: var(--accent-light); border-color: var(--accent); }
+    .role-title { font-size: 13px; font-weight: 600; flex: 1; }
+    .role-period-badge { font-size: 11px; color: var(--text-3); white-space: nowrap; }
+    .role-chevron {
+      width: 14px; height: 14px; flex-shrink: 0;
+      transition: transform 0.2s;
+      color: var(--text-3);
+    }
+    .role-header.open .role-chevron { transform: rotate(90deg); }
+    .role-body {
+      display: none; padding: 14px 14px 10px 22px;
+    }
+    .role-body.open { display: block; }
+    .role-bullets { list-style: none; }
+    .role-bullets li {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 7px; font-size: 13px; line-height: 1.6;
+    }
+    .role-bullets li::before {
+      content: ''; display: block; flex-shrink: 0;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--text-3); margin-top: 8px;
+    }
+
+    /* ── Right column ── */
+    .right-col { display: flex; flex-direction: column; gap: 36px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+    }
+    .card-header {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .card-body { padding: 16px; }
+
+    /* Languages */
+    .lang-item {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 9px;
+    }
+    .lang-item:last-child { margin-bottom: 0; }
+    .lang-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    }
+    .lang-dot.active { background: var(--accent); }
+    .lang-dot.muted { background: var(--border); }
+    .lang-name { font-size: 13px; font-weight: 600; }
+    .lang-level { font-size: 12px; color: var(--text-3); margin-left: 4px; }
+
+    /* Education */
+    .edu-item {
+      padding-left: 14px; margin-bottom: 18px;
+    }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-item.current { border-left: 2px solid var(--accent); }
+    .edu-item.past { border-left: 2px solid var(--border); }
+    .edu-degree { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .edu-inst { font-size: 12px; margin-bottom: 2px; }
+    .edu-meta { font-size: 11px; color: var(--text-3); }
+    .edu-notes { font-size: 11px; color: var(--text-3); margin-top: 5px; line-height: 1.6; }
+
+    /* Certifications */
+    .cert-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .cert-item:last-child { margin-bottom: 0; }
+    .cert-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 5px;
+    }
+    .cert-name { font-size: 12px; font-weight: 600; line-height: 1.4; margin-bottom: 2px; }
+    .cert-meta { font-size: 11px; color: var(--text-3); }
+
+    /* Volunteer */
+    .vol-item { margin-bottom: 16px; }
+    .vol-item:last-child { margin-bottom: 0; }
+    .vol-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .vol-scope { font-size: 11px; color: var(--accent); margin-bottom: 4px; font-weight: 500; }
+    .vol-desc { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── References ── */
+    .references { padding-bottom: 64px; }
+    .refs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .ref-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px;
+    }
+    .ref-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .ref-title { font-size: 12px; color: var(--accent); margin-bottom: 2px; }
+    .ref-org { font-size: 11px; color: var(--text-3); margin-bottom: 10px; }
+    .ref-note { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px;
+      font-size: 12px; color: var(--text-3);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-accent-bar { animation: fadeUp 0.4s ease both; }
+    .hero h1 { animation: fadeUp 0.5s 0.05s ease both; }
+    .hero-title { animation: fadeUp 0.5s 0.1s ease both; }
+    .hero-contact { animation: fadeUp 0.5s 0.15s ease both; }
+    .hero-tagline { animation: fadeUp 0.5s 0.2s ease both; }
+    .metrics-grid { animation: fadeUp 0.5s 0.25s ease both; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .main-grid { grid-template-columns: 1fr; gap: 32px; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .refs-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="wrapper">
+      <div class="nav-inner">
+        <span class="nav-name">Alona Korober</span>
+        <div class="nav-links">
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#references">References</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="wrapper">
+      <div class="hero-accent-bar"></div>
+      <h1>Alona Korober</h1>
+      <p class="hero-title">Chief Operating Officer &nbsp;·&nbsp; General Manager &nbsp;·&nbsp; HR & People Leader</p>
+      <div class="hero-contact">
+        <span>San Jose, CA</span>
+        <a href="mailto:Alona.korober@gmail.com">Alona.korober@gmail.com</a>
+        <a href="tel:+14086405312">+1-408-640-5312</a>
+      </div>
+      <p class="hero-tagline">
+        Operational leader with 12+ years scaling organizations from 50 to 350+ employees.
+        Proven expertise across HR, finance, sales, CRM, and crisis management —
+        with measurable 10× profitability and conversion results.
+      </p>
+    </div>
+  </section>
+
+  <!-- Metrics -->
+  <section class="metrics">
+    <div class="wrapper">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">350+</div>
+          <div class="metric-label">Employees Scaled</div>
+          <div class="metric-note">from 50</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">10×</div>
+          <div class="metric-label">Profitability Growth</div>
+          <div class="metric-note">over tenure</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">10×</div>
+          <div class="metric-label">Lead Conversion</div>
+          <div class="metric-note">improvement</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">3–4×</div>
+          <div class="metric-label">Customer LTV</div>
+          <div class="metric-note">growth</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" style="max-width:1100px;margin:0 auto 48px;" />
+
+  <!-- Main two-column -->
+  <div class="wrapper">
+    <div class="main-grid">
+
+      <!-- Left column -->
+      <div>
+
+        <!-- Skills -->
+        <section class="skills" id="skills">
+          <div class="section-label">Skills &amp; Core Competencies</div>
+          <div class="skill-group">
+            <div class="skill-group-label">Core Leadership</div>
+            <div class="tags">
+              <span class="tag">Executive Leadership</span>
+              <span class="tag">Strategic Planning</span>
+              <span class="tag">General Management</span>
+              <span class="tag">Project Management</span>
+              <span class="tag">Risk Management</span>
+              <span class="tag">Business Process Reengineering</span>
+              <span class="tag">Cross-functional Coordination</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">HR &amp; People</div>
+            <div class="tags">
+              <span class="tag">HR Systems Design</span>
+              <span class="tag">Recruitment Strategy</span>
+              <span class="tag">Compensation &amp; Benefits</span>
+              <span class="tag">Performance Management</span>
+              <span class="tag">Training &amp; Development</span>
+              <span class="tag">Coaching</span>
+              <span class="tag">Culture Building</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Finance</div>
+            <div class="tags">
+              <span class="tag">P&amp;L Management</span>
+              <span class="tag">Budget Forecasting</span>
+              <span class="tag">Payroll Accounting</span>
+              <span class="tag">Financial Analysis</span>
+              <span class="tag">Cost Optimization</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Sales &amp; Business Dev</div>
+            <div class="tags">
+              <span class="tag">B2B / B2C / B2G</span>
+              <span class="tag">Tender Preparation</span>
+              <span class="tag">Client Relationship Management</span>
+              <span class="tag">Marketing Strategy</span>
+              <span class="tag">Event Organization</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Technology</div>
+            <div class="tags">
+              <span class="tag">CRM Implementation</span>
+              <span class="tag">AI Tools &amp; Automation</span>
+              <span class="tag">Google Analytics</span>
+              <span class="tag">Microsoft Office</span>
+              <span class="tag">Google Workspace</span>
+              <span class="tag">IT Infrastructure</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Communication</div>
+            <div class="tags">
+              <span class="tag">Public Speaking</span>
+              <span class="tag">Copywriting</span>
+              <span class="tag">Multilingual Fluency</span>
+              <span class="tag">Cross-cultural Communication</span>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- Experience -->
+        <section class="experience" id="experience">
+          <div class="section-label">Professional Experience</div>
+
+          <!-- Job 1 -->
+          <div class="job">
+            <div class="job-header">
+              <span class="job-company">Private Digital Sales Organization</span>
+              <span class="job-period">Oct 2017 – Jan 2026</span>
+            </div>
+            <div class="job-location">Kyiv, Ukraine</div>
+            <div class="role">
+              <div class="role-header open" onclick="toggleRole(this)">
+                <span class="role-title">Chief Operating Officer &amp; General Manager</span>
+                <span class="role-period-badge">Dec 2019 – Jan 2026</span>
+                <svg class="role-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 4l4 4-4 4"/>
+                </svg>
+              </div>
+              <div class="role-body open">
+                <ul class="role-bullets">
+                  <li>Full responsibility for internal structure of a high-volume B2C org — scaled from 50 to 350+ employees</li>
+                  <li>Increased company profitability 5.5× (10× over full tenure) through operational excellence</li>
+                  <li>Built HR department from scratch: structure, CRM, policies, and full compensation systems</li>
+                  <li>Managed payroll for 350+ employees including KPI bonuses and incentive programs</li>
+                  <li>Founded internal training centre with peer-based onboarding; cut ramp-up time and budget risk</li>
+                  <li>Innovative lead generation approach: 10× conversion improvement and 3–4× customer LTV growth</li>
+                  <li>Built QA/Training department; improved call quality and reduced errors via systematic coaching</li>
+                  <li>Maintained full company operations during COVID-19, wartime crisis, and operational disruptions</li>
+                  <li>Structured 6-month leadership handover prior to relocation to the USA (completed Jan 2026)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="role">
+              <div class="role-header" onclick="toggleRole(this)">
+                <span class="role-title">Operations &amp; Administration Manager</span>
+                <span class="role-period-badge">Sep 2018 – Nov 2019</span>
+                <svg class="role-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 4l4 4-4 4"/>
+                </svg>
+              </div>
+              <div class="role-body">
+                <ul class="role-bullets">
+                  <li>Built administrative and financial infrastructure during organisational scaling phase</li>
+                  <li>Managed payroll accounting, analytics, and financial reporting</li>
+                  <li>Oversaw back-office: office management, IT support, security, and supply coordination</li>
+                  <li>Established HR systems, processes, and foundational compensation structures</li>
+                </ul>
+              </div>
+            </div>
+            <div class="role">
+              <div class="role-header" onclick="toggleRole(this)">
+                <span class="role-title">Sales Manager</span>
+                <span class="role-period-badge">Oct 2017 – Aug 2018</span>
+                <svg class="role-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 4l4 4-4 4"/>
+                </svg>
+              </div>
+              <div class="role-body">
+                <ul class="role-bullets">
+                  <li>Managed full-cycle B2C sales including client acquisition and account management</li>
+                  <li>Consultative approach to matching client needs with service offerings</li>
+                  <li>Developed sales strategies and client relationship management processes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job 2 -->
+          <hr class="divider" />
+          <div class="job">
+            <div class="job-header">
+              <span class="job-company">Avtoplaneta Holding</span>
+              <span class="job-period">Sep 2014 – Aug 2017</span>
+            </div>
+            <div class="job-location">Kherson, Ukraine</div>
+            <div class="role">
+              <div class="role-header" onclick="toggleRole(this)">
+                <span class="role-title">Corporate Client Account Manager</span>
+                <span class="role-period-badge">Apr 2015 – Aug 2017</span>
+                <svg class="role-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 4l4 4-4 4"/>
+                </svg>
+              </div>
+              <div class="role-body">
+                <ul class="role-bullets">
+                  <li>Drove B2B, B2G, and B2C vehicle sales across private, commercial, and government sectors</li>
+                  <li>Managed full tender cycle: identification, documentation, participation, and contract support</li>
+                  <li>Negotiated agreements with new and existing clients; expanded strategic accounts</li>
+                  <li>Created official social media presence; significantly boosted brand recognition</li>
+                </ul>
+              </div>
+            </div>
+            <div class="role">
+              <div class="role-header" onclick="toggleRole(this)">
+                <span class="role-title">Event Manager / Marketer — BRP Showroom</span>
+                <span class="role-period-badge">Sep 2014 – Mar 2015</span>
+                <svg class="role-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 4l4 4-4 4"/>
+                </svg>
+              </div>
+              <div class="role-body">
+                <ul class="role-bullets">
+                  <li>Founded and developed the BRP Owners Club as a retention and sales tool</li>
+                  <li>Organised off-road events showcasing vehicle capabilities; drove repeat purchases</li>
+                  <li>Managed competitions and test drives at local, national, and international levels</li>
+                  <li>Achieved 2× sales volume increase during tenure</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job 3 -->
+          <hr class="divider" />
+          <div class="job">
+            <div class="job-header">
+              <span class="job-company">Early Career — Multi-Industry</span>
+              <span class="job-period">Pre-2014</span>
+            </div>
+            <div class="job-location">Ukraine &amp; International</div>
+            <div class="role">
+              <div class="role-header" onclick="toggleRole(this)">
+                <span class="role-title">Various Roles Across Industries</span>
+                <span class="role-period-badge">2008–2014</span>
+                <svg class="role-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 4l4 4-4 4"/>
+                </svg>
+              </div>
+              <div class="role-body">
+                <ul class="role-bullets">
+                  <li><strong>Personal Assistant · ABS Metals (Ukraine–Lebanon):</strong> International ops, business development, Canton Fair sourcing</li>
+                  <li><strong>Sales Manager · Reward Guaranty Group:</strong> Legal consulting, negotiations, contract management</li>
+                  <li><strong>Investment Analysis &amp; Market Consulting:</strong> Financial instrument research, client advisory</li>
+                  <li><strong>Founder &amp; Manager · Entertainment Centre &amp; Event Agency:</strong> Children's events and community activities</li>
+                  <li><strong>Executive Director · Khersonrybholod:</strong> Launched fish processing facility; supply chain, staffing, regulatory compliance</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right column -->
+      <div class="right-col">
+
+        <!-- Languages -->
+        <div class="card">
+          <div class="card-header">Languages</div>
+          <div class="card-body">
+            <div class="lang-item"><div class="lang-dot active"></div><span class="lang-name">English</span><span class="lang-level">Fluent</span></div>
+            <div class="lang-item"><div class="lang-dot active"></div><span class="lang-name">Ukrainian</span><span class="lang-level">Native</span></div>
+            <div class="lang-item"><div class="lang-dot active"></div><span class="lang-name">Russian</span><span class="lang-level">Native</span></div>
+            <div class="lang-item"><div class="lang-dot muted"></div><span class="lang-name">Polish</span><span class="lang-level">Basic</span></div>
+            <div class="lang-item"><div class="lang-dot muted"></div><span class="lang-name">Belarusian</span><span class="lang-level">Basic</span></div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div id="education">
+          <div class="section-label">Education</div>
+          <div class="edu-item current">
+            <div class="edu-degree">Coursework: Psychology &amp; Leadership</div>
+            <div class="edu-inst">Evergreen Valley College</div>
+            <div class="edu-meta">San Jose, CA &nbsp;·&nbsp; 2024–2026</div>
+            <div class="edu-notes">Human Relations/Leadership · Research Methods · General Psychology · Stress Reduction · Developmental &amp; Social Psychology</div>
+          </div>
+          <div class="edu-item past">
+            <div class="edu-degree">Master's in Psychology</div>
+            <div class="edu-inst">Kherson State University</div>
+            <div class="edu-meta">Kherson, Ukraine &nbsp;·&nbsp; 2017</div>
+          </div>
+          <div class="edu-item past">
+            <div class="edu-degree">Master's in Fine Art &amp; Design</div>
+            <div class="edu-inst">Kyiv University of Culture and Arts</div>
+            <div class="edu-meta">Kyiv, Ukraine &nbsp;·&nbsp; 2007</div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div id="certifications">
+          <div class="section-label">Certifications &amp; Training</div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">PHRca Certification (HRCI) — HR Associate, California</div><div class="cert-meta">2026</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">Google Project Management Certificate</div><div class="cert-meta">Google Career Certificates · 2026</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">Building Diverse, Inclusive &amp; Safe Workplaces</div><div class="cert-meta">Coursera · 2026</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">People Analytics</div><div class="cert-meta">Wharton / University of Pennsylvania · 2026</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">Human Resources Analytics</div><div class="cert-meta">UC Irvine · 2026</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">From Beginner to Expert in AI</div><div class="cert-meta">AcademyOcean · 2025</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div><div class="cert-name">AMFT — Associate Marriage &amp; Family Therapist</div><div class="cert-meta">BBS · In Progress</div></div>
+          </div>
+        </div>
+
+        <!-- Volunteer -->
+        <div>
+          <div class="section-label">Volunteer &amp; Community</div>
+          <div class="vol-item">
+            <div class="vol-title">Community Park &amp; Embankment Revitalization</div>
+            <div class="vol-scope">Kherson, Ukraine</div>
+            <div class="vol-desc">Initiated and led a comprehensive park revitalization. Organised sponsor search, volunteer coordination, community engagement, and event execution.</div>
+          </div>
+          <div class="vol-item">
+            <div class="vol-title">Crisis Response &amp; Humanitarian Leadership</div>
+            <div class="vol-scope">War Crisis Response</div>
+            <div class="vol-desc">Coordinated humanitarian aid distribution and emergency assistance. Organised charity auctions and relief efforts for affected communities.</div>
+          </div>
+          <div class="vol-item">
+            <div class="vol-title">Support Programs for Orphaned Children</div>
+            <div class="vol-scope">Community Engagement</div>
+            <div class="vol-desc">Organised creative activities, mentorship, and support programs demonstrating commitment to vulnerable populations.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="max-width:1100px;margin:0 auto;" />
+
+  <!-- References -->
+  <section class="references" id="references">
+    <div class="wrapper">
+      <div class="section-label">References</div>
+      <div class="refs-grid">
+        <div class="ref-card">
+          <div class="ref-name">Sam Baljian</div>
+          <div class="ref-title">Owner &amp; Managing Director</div>
+          <div class="ref-org">ABS Metals, Beirut, Lebanon</div>
+          <div class="ref-note">Confirms high trust, initiative, adaptability, creativity, and leadership in an international business context.</div>
+        </div>
+        <div class="ref-card">
+          <div class="ref-name">Mia Pozniansky</div>
+          <div class="ref-title">Assistant Professor of Psychology</div>
+          <div class="ref-org">Evergreen Valley College</div>
+          <div class="ref-note">Highlights top academic performance, advanced analytical skills, leadership potential, and cultural sensitivity.</div>
+        </div>
+        <div class="ref-card">
+          <div class="ref-name">Yevhenii Sokrut</div>
+          <div class="ref-title">Director, Municipal Utility Enterprise</div>
+          <div class="ref-org">Tsiurupynsk-Komunhosp, Ukraine</div>
+          <div class="ref-note">Official reference for community project leadership, volunteer engagement, and infrastructure upgrades.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrapper">
+      <div class="footer-inner">
+        <span>Alona Korober &mdash; Portfolio</span>
+        <span>Full letters of recommendation available upon request</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleRole(header) {
+      const body = header.nextElementSibling;
+      const isOpen = header.classList.contains('open');
+      header.classList.toggle('open', !isOpen);
+      body.classList.toggle('open', !isOpen);
+    }
+  </script>
+
+</body>
+</html>
