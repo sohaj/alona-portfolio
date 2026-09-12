@@ -188,8 +188,8 @@
       position: absolute;
       right: 0; top: 0; bottom: 0; width: 52%;
       overflow: hidden; pointer-events: none; z-index: 0;
-      /* diagonal left edge — top starts at 11%, bottom flush */
-      clip-path: polygon(11% 0%, 100% 0%, 100% 100%, 0% 100%);
+      /* clip to the right side of the S-curve decorative line */
+      clip-path: url(#photo-clip);
     }
     .hero-photo img {
       width: 100%; height: 100%;
@@ -631,6 +631,20 @@
 <body>
 
 <!-- ── NAV ──────────────────────────────────────────────────────────── -->
+<!-- SVG clip-path that matches the decorative S-curve exactly.
+     objectBoundingBox coords: x = (viewport% - 48) / 52, y = viewport% / 100
+     (photo sits at right:0 width:52%, so its left edge is at 48% viewport) -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <clipPath id="photo-clip" clipPathUnits="objectBoundingBox">
+      <path d="M 0.1096 0
+               C 0.1923 0.18, -0.0962 0.38, 0.0769 0.55
+               C 0.25   0.72, -0.0385 0.86,  0.0096 1
+               L 1 1 L 1 0 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
 <nav id="nav">
   <div class="w">
     <div class="nav-row">
