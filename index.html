@@ -128,6 +128,43 @@
       padding: 120px 0 96px; position: relative; overflow: hidden;
     }
 
+    /* Alona's photo – right half, full bleed */
+    .hero-photo {
+      position: absolute;
+      right: 0; top: 0; bottom: 0; width: 52%;
+      overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 12%;
+      display: block;
+    }
+    /* seamless fade: left edge blends to bg, bottom fades out */
+    .hero-photo::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to right,  var(--bg) 0%, rgba(11,11,18,.55) 38%, transparent 68%),
+        linear-gradient(to top,    var(--bg) 0%, transparent 28%),
+        linear-gradient(to bottom, var(--bg) 0%, transparent 14%);
+    }
+    /* subtle warm vignette over image */
+    .hero-photo::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 2;
+      background: rgba(11,8,4,.18);
+    }
+
+    /* thin gold frame accent line on right edge of text area */
+    .hero-frame-line {
+      position: absolute; left: 47%; top: 15%; bottom: 15%;
+      width: 1px; background: linear-gradient(to bottom, transparent, rgba(196,163,85,.25) 30%, rgba(196,163,85,.25) 70%, transparent);
+      pointer-events: none; z-index: 1;
+    }
+
+    /* constrain text to left half */
+    .hero-inner { position: relative; z-index: 2; max-width: 52%; }
+
     /* ambient light blobs */
     .blob {
       position: absolute; border-radius: 50%;
@@ -139,7 +176,7 @@
     }
     .blob-2 {
       bottom: -10%; right: -5%; width: 45vw; height: 45vw;
-      background: radial-gradient(ellipse, rgba(77,120,175,.055) 0%, transparent 65%);
+      background: radial-gradient(ellipse, rgba(77,120,175,.04) 0%, transparent 65%);
     }
 
     .hero-eyebrow { margin-bottom: 20px; }
@@ -174,7 +211,7 @@
     /* Stats strip */
     .stats {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      max-width: 680px;
+      max-width: 560px;
       border: 1px solid var(--border);
       border-radius: var(--r); overflow: hidden;
       background: var(--border); gap: 1px;
@@ -451,12 +488,29 @@
       .cred-wrap { grid-template-columns: 1fr; gap: 52px; }
       .ref-grid { grid-template-columns: 1fr; }
       .vol-grid { grid-template-columns: 1fr; }
+      /* On tablet: photo shrinks, text expands */
+      .hero-photo { width: 46%; }
+      .hero-inner { max-width: 58%; }
+      .hero-frame-line { left: 53%; }
     }
-    @media (max-width: 580px) {
+    @media (max-width: 640px) {
       .w { padding: 0 20px; }
       .nav-links { display: none; }
       section, #skills, #experience, #credentials, #volunteer, #references { padding: 72px 0; }
-      .hero-name { font-size: clamp(44px,14vw,64px); }
+      /* Stack: photo becomes top banner */
+      #hero { padding-top: 0; padding-bottom: 80px; justify-content: flex-end; min-height: 100svh; }
+      .hero-photo {
+        width: 100%; height: 65vh; top: 0; bottom: auto;
+        /* bottom fade stronger on mobile */
+      }
+      .hero-photo::before {
+        background:
+          linear-gradient(to bottom, transparent 20%, var(--bg) 90%),
+          linear-gradient(to right, var(--bg) 0%, transparent 50%);
+      }
+      .hero-frame-line { display: none; }
+      .hero-inner { max-width: 100%; padding-top: 0; }
+      .hero-name { font-size: clamp(44px,13vw,62px); }
     }
   </style>
 </head>
@@ -482,50 +536,60 @@
 <section id="hero">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
+
+  <!-- Full-bleed photo, right half, fades into background -->
+  <div class="hero-photo">
+    <img src="alona.png" alt="Alona Korober" />
+  </div>
+  <!-- Subtle vertical gold accent line -->
+  <div class="hero-frame-line"></div>
+
   <div class="w">
-    <p class="label hero-eyebrow reveal">Portfolio</p>
-    <h1 class="hero-name reveal" data-delay="1">
-      Alona<br><em>Korober</em>
-    </h1>
-    <p class="hero-subtitle reveal" data-delay="2">
-      Chief Operating Officer · General Manager<br>HR & People Leader · San Jose, CA
-    </p>
-    <p class="hero-meta reveal" data-delay="2">
-      <span class="dot"></span> 12+ years scaling organizations &amp; building human-first cultures
-    </p>
+    <div class="hero-inner">
+      <p class="label hero-eyebrow reveal">Portfolio</p>
+      <h1 class="hero-name reveal" data-delay="1">
+        Alona<br><em>Korober</em>
+      </h1>
+      <p class="hero-subtitle reveal" data-delay="2">
+        Chief Operating Officer · General Manager<br>HR & People Leader · San Jose, CA
+      </p>
+      <p class="hero-meta reveal" data-delay="2">
+        <span class="dot"></span> 12+ years scaling organizations &amp; building human-first cultures
+      </p>
 
-    <div class="stats reveal" data-delay="3" id="stats">
-      <div class="stat-box">
-        <div class="stat-num" data-count="350" data-suffix="+">0</div>
-        <div class="stat-lbl">Employees Scaled</div>
-        <div class="stat-sub">from 50</div>
+      <div class="stats reveal" data-delay="3" id="stats">
+        <div class="stat-box">
+          <div class="stat-num" data-count="350" data-suffix="+">0</div>
+          <div class="stat-lbl">Employees Scaled</div>
+          <div class="stat-sub">from 50</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-static="10×">10×</div>
+          <div class="stat-lbl">Profitability Growth</div>
+          <div class="stat-sub">over tenure</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-static="10×">10×</div>
+          <div class="stat-lbl">Lead Conversion</div>
+          <div class="stat-sub">improvement</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-static="3–4×">3–4×</div>
+          <div class="stat-lbl">Customer LTV</div>
+          <div class="stat-sub">growth</div>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num" data-static="10×">10×</div>
-        <div class="stat-lbl">Profitability Growth</div>
-        <div class="stat-sub">over tenure</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" data-static="10×">10×</div>
-        <div class="stat-lbl">Lead Conversion</div>
-        <div class="stat-sub">improvement</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" data-static="3–4×">3–4×</div>
-        <div class="stat-lbl">Customer LTV</div>
-        <div class="stat-sub">growth</div>
-      </div>
-    </div>
 
-    <div class="hero-contact reveal" data-delay="4">
-      <a href="mailto:Alona.korober@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-        Alona.korober@gmail.com
-      </a>
-      <a href="tel:+14086405312">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
-        +1-408-640-5312
-      </a>
+      <div class="hero-contact reveal" data-delay="4">
+        <a href="mailto:Alona.korober@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Alona.korober@gmail.com
+        </a>
+        <a href="tel:+14086405312">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+          +1-408-640-5312
+        </a>
+      </div>
     </div>
   </div>
 
