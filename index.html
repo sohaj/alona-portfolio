@@ -10,35 +10,16 @@
   <!-- Prevent flash: apply saved theme before first paint -->
   <script>
     (function(){
-      var t = localStorage.getItem('theme') || 'dark';
-      if (t === 'light') document.documentElement.setAttribute('data-theme','light');
+      var t = localStorage.getItem('theme') || 'light';
+      if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
     })();
   </script>
   <style>
     /* ── Reset ──────────────────────────────────────────────────────── */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-    /* ── Tokens — Dark (default) ────────────────────────────────────── */
+    /* ── Tokens — Light (default) ───────────────────────────────────── */
     :root {
-      --bg:           #0b0b12;
-      --bg-2:         #10101a;
-      --bg-3:         #171724;
-      --border:       rgba(255,255,255,0.07);
-      --border-g:     rgba(196,163,85,0.28);
-      --text:         #f0ebe2;
-      --text-2:       #9896a0;
-      --text-3:       #52505c;
-      --gold:         #c4a355;
-      --gold-bg:      rgba(196,163,85,0.07);
-      --gold-dim:     rgba(196,163,85,0.15);
-      --bg-rgb:       11,11,18;
-      --nav-bg:       rgba(11,11,18,.9);
-      --photo-vignette: rgba(11,8,4,.18);
-      --r:            8px;
-    }
-
-    /* ── Tokens — Light ─────────────────────────────────────────────── */
-    [data-theme="light"] {
       --bg:           #f5f2eb;
       --bg-2:         #ffffff;
       --bg-3:         #ece8e0;
@@ -53,6 +34,25 @@
       --bg-rgb:       245,242,235;
       --nav-bg:       rgba(245,242,235,.92);
       --photo-vignette: rgba(245,242,235,.12);
+      --r:            8px;
+    }
+
+    /* ── Tokens — Dark ──────────────────────────────────────────────── */
+    [data-theme="dark"] {
+      --bg:           #0b0b12;
+      --bg-2:         #10101a;
+      --bg-3:         #171724;
+      --border:       rgba(255,255,255,0.07);
+      --border-g:     rgba(196,163,85,0.28);
+      --text:         #f0ebe2;
+      --text-2:       #9896a0;
+      --text-3:       #52505c;
+      --gold:         #c4a355;
+      --gold-bg:      rgba(196,163,85,0.07);
+      --gold-dim:     rgba(196,163,85,0.15);
+      --bg-rgb:       11,11,18;
+      --nav-bg:       rgba(11,11,18,.9);
+      --photo-vignette: rgba(11,8,4,.18);
     }
 
     html { scroll-behavior: smooth; }
@@ -1187,21 +1187,21 @@ const SUN = `<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/
 const MOON = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
 
 function syncThemeBtn() {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const icon  = document.getElementById('theme-icon');
   const label = document.getElementById('theme-label');
   if (!icon) return;
-  icon.innerHTML  = isLight ? MOON : SUN;
-  label.textContent = isLight ? 'Dark' : 'Light';
+  icon.innerHTML    = isDark ? SUN : MOON;
+  label.textContent = isDark ? 'Light' : 'Dark';
 }
 
 function toggleTheme() {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  const next = isLight ? 'dark' : 'light';
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
   if (next === 'dark') {
-    document.documentElement.removeAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', 'dark');
   } else {
-    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.removeAttribute('data-theme');
   }
   localStorage.setItem('theme', next);
   syncThemeBtn();
