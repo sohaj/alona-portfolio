@@ -7,27 +7,62 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Prevent flash: apply saved theme before first paint -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme') || 'dark';
+      if (t === 'light') document.documentElement.setAttribute('data-theme','light');
+    })();
+  </script>
   <style>
     /* ── Reset ──────────────────────────────────────────────────────── */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-    /* ── Tokens ─────────────────────────────────────────────────────── */
+    /* ── Tokens — Dark (default) ────────────────────────────────────── */
     :root {
-      --bg:       #0b0b12;
-      --bg-2:     #10101a;
-      --bg-3:     #171724;
-      --border:   rgba(255,255,255,0.07);
-      --border-g: rgba(196,163,85,0.28);
-      --text:     #f0ebe2;
-      --text-2:   #9896a0;
-      --text-3:   #52505c;
-      --gold:     #c4a355;
-      --gold-bg:  rgba(196,163,85,0.07);
-      --gold-dim: rgba(196,163,85,0.15);
-      --r:        8px;
+      --bg:           #0b0b12;
+      --bg-2:         #10101a;
+      --bg-3:         #171724;
+      --border:       rgba(255,255,255,0.07);
+      --border-g:     rgba(196,163,85,0.28);
+      --text:         #f0ebe2;
+      --text-2:       #9896a0;
+      --text-3:       #52505c;
+      --gold:         #c4a355;
+      --gold-bg:      rgba(196,163,85,0.07);
+      --gold-dim:     rgba(196,163,85,0.15);
+      --bg-rgb:       11,11,18;
+      --nav-bg:       rgba(11,11,18,.9);
+      --photo-vignette: rgba(11,8,4,.18);
+      --r:            8px;
+    }
+
+    /* ── Tokens — Light ─────────────────────────────────────────────── */
+    [data-theme="light"] {
+      --bg:           #f5f2eb;
+      --bg-2:         #ffffff;
+      --bg-3:         #ece8e0;
+      --border:       rgba(0,0,0,0.09);
+      --border-g:     rgba(172,136,46,0.38);
+      --text:         #18140f;
+      --text-2:       #5a5650;
+      --text-3:       #9a9590;
+      --gold:         #a07828;
+      --gold-bg:      rgba(160,120,40,0.08);
+      --gold-dim:     rgba(160,120,40,0.18);
+      --bg-rgb:       245,242,235;
+      --nav-bg:       rgba(245,242,235,.92);
+      --photo-vignette: rgba(245,242,235,.12);
     }
 
     html { scroll-behavior: smooth; }
+
+    /* smooth theme transition */
+    body, nav, footer, section, .card, .ref-card, .vol-card,
+    .tl-role, .cert-row, .stat-box, .tab, .pill,
+    .hero-contact a, .ft-links a {
+      transition: background-color .35s ease, border-color .35s ease, color .35s ease;
+    }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -91,7 +126,7 @@
     }
     #nav.pinned {
       padding: 14px 0;
-      background: rgba(11,11,18,.9);
+      background: var(--nav-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -144,15 +179,15 @@
       content: '';
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(to right,  var(--bg) 0%, rgba(11,11,18,.55) 38%, transparent 68%),
-        linear-gradient(to top,    var(--bg) 0%, transparent 28%),
-        linear-gradient(to bottom, var(--bg) 0%, transparent 14%);
+        linear-gradient(to right,  rgba(var(--bg-rgb),1) 0%, rgba(var(--bg-rgb),.52) 38%, transparent 68%),
+        linear-gradient(to top,    rgba(var(--bg-rgb),1) 0%, transparent 28%),
+        linear-gradient(to bottom, rgba(var(--bg-rgb),1) 0%, transparent 14%);
     }
-    /* subtle warm vignette over image */
+    /* subtle vignette over image */
     .hero-photo::after {
       content: '';
       position: absolute; inset: 0; z-index: 2;
-      background: rgba(11,8,4,.18);
+      background: var(--photo-vignette);
     }
 
     .hero-frame-line { display: none; }
@@ -479,13 +514,26 @@
       font-weight: 600; color: var(--text); margin-bottom: 2px;
     }
     .ft-left .ft-sub { font-size: 11px; color: var(--text-3); }
-    .ft-links { display: flex; gap: 18px; }
+    .ft-links { display: flex; gap: 18px; align-items: center; }
     .ft-links a {
       font-family: 'Space Grotesk', sans-serif; font-size: 11px;
       color: var(--text-3); text-decoration: none; letter-spacing: .05em;
       text-transform: uppercase; transition: color .2s;
     }
     .ft-links a:hover { color: var(--gold); }
+
+    /* ── Theme toggle ────────────────────────────────────────────────── */
+    #theme-toggle {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 14px 6px 10px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 100px; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: .05em;
+      color: var(--text-2); text-transform: uppercase;
+    }
+    #theme-toggle:hover { border-color: var(--border-g); color: var(--gold); }
+    #theme-toggle svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* ── Responsive ─────────────────────────────────────────────────── */
     @media (max-width: 820px) {
@@ -509,8 +557,8 @@
       }
       .hero-photo::before {
         background:
-          linear-gradient(to bottom, transparent 20%, var(--bg) 90%),
-          linear-gradient(to right, var(--bg) 0%, transparent 50%);
+          linear-gradient(to bottom, transparent 20%, rgba(var(--bg-rgb),1) 90%),
+          linear-gradient(to right,  rgba(var(--bg-rgb),1) 0%, transparent 50%);
       }
       .hero-frame-line { display: none; }
       .hero-inner { max-width: 100%; padding-top: 0; }
@@ -1043,6 +1091,11 @@
         <a href="mailto:Alona.korober@gmail.com">Email</a>
         <a href="tel:+14086405312">Phone</a>
         <a href="#hero">Back to top</a>
+        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <!-- icon swapped by JS -->
+          <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"></svg>
+          <span id="theme-label">Light</span>
+        </button>
       </div>
     </div>
   </div>
@@ -1128,6 +1181,33 @@ function toggleRole(header) {
   const isOpen = role.classList.contains('open');
   role.classList.toggle('open', !isOpen);
 }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+const SUN = `<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+const MOON = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+
+function syncThemeBtn() {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const icon  = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+  if (!icon) return;
+  icon.innerHTML  = isLight ? MOON : SUN;
+  label.textContent = isLight ? 'Dark' : 'Light';
+}
+
+function toggleTheme() {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  if (next === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+  localStorage.setItem('theme', next);
+  syncThemeBtn();
+}
+
+syncThemeBtn(); // init button state on load
 </script>
 </body>
 </html>
