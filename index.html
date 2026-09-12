@@ -155,12 +155,7 @@
       background: rgba(11,8,4,.18);
     }
 
-    /* thin gold frame accent line — sits at the photo's left edge */
-    .hero-frame-line {
-      position: absolute; left: 48%; top: 12%; bottom: 12%;
-      width: 1px; background: linear-gradient(to bottom, transparent, rgba(196,163,85,.22) 25%, rgba(196,163,85,.22) 75%, transparent);
-      pointer-events: none; z-index: 1;
-    }
+    .hero-frame-line { display: none; }
 
     /* Hero .w overrides: left-anchor instead of center */
     #hero > .w {
@@ -501,7 +496,6 @@
       /* On tablet: photo shrinks, text expands */
       .hero-photo { width: 46%; }
       .hero-inner { max-width: min(560px, 52vw); }
-      .hero-frame-line { left: 53%; }
     }
     @media (max-width: 640px) {
       .w { padding: 0 20px; }
