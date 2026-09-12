@@ -575,9 +575,8 @@
       .cred-wrap { grid-template-columns: 1fr; gap: 52px; }
       .ref-grid { grid-template-columns: 1fr; }
       .vol-grid { grid-template-columns: 1fr; }
-      /* On tablet: photo shrinks, text expands */
-      .hero-photo { width: 46%; }
-      .hero-inner { max-width: min(560px, 52vw); }
+      /* On tablet: keep photo at 52% so S-curve stays at the photo edge */
+      .hero-inner { max-width: min(560px, 46vw); }
     }
     @media (max-width: 640px) {
       /* ── General ── */
