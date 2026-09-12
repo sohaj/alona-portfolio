@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Alona Korober — COO & People Leader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -121,11 +121,12 @@
     /* ── NAV ─────────────────────────────────────────────────────────── */
     #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      padding: 22px 0;
+      /* push content below the iOS status bar / notch */
+      padding: calc(env(safe-area-inset-top, 0px) + 22px) 0 22px;
       transition: padding .3s, background .3s, border .3s;
     }
     #nav.pinned {
-      padding: 14px 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 14px) 0 14px;
       background: var(--nav-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
