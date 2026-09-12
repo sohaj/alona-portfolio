@@ -564,23 +564,57 @@
       .hero-inner { max-width: min(560px, 52vw); }
     }
     @media (max-width: 640px) {
+      /* ── General ── */
       .w { padding: 0 20px; }
       .nav-links { display: none; }
-      section, #skills, #experience, #credentials, #volunteer, #references { padding: 72px 0; }
-      /* Stack: photo becomes top banner */
-      #hero { padding-top: 0; padding-bottom: 80px; justify-content: flex-end; min-height: 100svh; }
+      section, #skills, #experience, #credentials,
+      #volunteer, #references, #languages { padding: 60px 0; }
+
+      /* ── Hero: image on top, content stacked below ── */
+      #hero {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0;
+        min-height: auto;
+      }
+
+      /* Image becomes a natural-flow top element */
       .hero-photo {
-        width: 100%; height: 65vh; top: 0; bottom: auto;
-        /* bottom fade stronger on mobile */
+        position: relative;
+        width: 100%; height: 68vw;
+        top: auto; bottom: auto; right: auto; left: auto;
+        flex-shrink: 0;
       }
+      /* Only a bottom fade — no side or top gradient needed */
       .hero-photo::before {
-        background:
-          linear-gradient(to bottom, transparent 20%, rgba(var(--bg-rgb),1) 90%),
-          linear-gradient(to right,  rgba(var(--bg-rgb),1) 0%, transparent 50%);
+        background: linear-gradient(to bottom,
+          transparent 45%,
+          rgba(var(--bg-rgb), .9) 80%,
+          rgba(var(--bg-rgb), 1) 100%);
       }
+
+      /* Content sits below image with breathing room */
+      #hero > .w {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .hero-inner {
+        max-width: 100%;
+        padding-top: 16px;
+        padding-bottom: 52px;
+      }
+      .hero-name { font-size: clamp(42px, 12vw, 58px); }
+
+      /* Stats: equal columns, full width, proper side margins */
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
+      }
+
+      /* Hide decorative elements that don't work at this size */
       .hero-frame-line { display: none; }
-      .hero-inner { max-width: 100%; padding-top: 0; }
-      .hero-name { font-size: clamp(44px,13vw,62px); }
+      .scroll-cue { display: none; }
+      .blob { display: none; }
     }
   </style>
 </head>
