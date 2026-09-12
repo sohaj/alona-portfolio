@@ -155,15 +155,25 @@
       background: rgba(11,8,4,.18);
     }
 
-    /* thin gold frame accent line on right edge of text area */
+    /* thin gold frame accent line — sits at the photo's left edge */
     .hero-frame-line {
-      position: absolute; left: 47%; top: 15%; bottom: 15%;
-      width: 1px; background: linear-gradient(to bottom, transparent, rgba(196,163,85,.25) 30%, rgba(196,163,85,.25) 70%, transparent);
+      position: absolute; left: 48%; top: 12%; bottom: 12%;
+      width: 1px; background: linear-gradient(to bottom, transparent, rgba(196,163,85,.22) 25%, rgba(196,163,85,.22) 75%, transparent);
       pointer-events: none; z-index: 1;
     }
 
-    /* constrain text to left half */
-    .hero-inner { position: relative; z-index: 2; max-width: 52%; }
+    /* Hero .w overrides: left-anchor instead of center */
+    #hero > .w {
+      max-width: 100%;
+      margin: 0;
+      padding-left: clamp(40px, 5vw, 80px);
+      padding-right: 0;
+    }
+    /* constrain text to left portion, never overlapping photo */
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: min(540px, 46vw);
+    }
 
     /* ambient light blobs */
     .blob {
@@ -211,7 +221,7 @@
     /* Stats strip */
     .stats {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      max-width: 560px;
+      max-width: 100%;
       border: 1px solid var(--border);
       border-radius: var(--r); overflow: hidden;
       background: var(--border); gap: 1px;
@@ -490,7 +500,7 @@
       .vol-grid { grid-template-columns: 1fr; }
       /* On tablet: photo shrinks, text expands */
       .hero-photo { width: 46%; }
-      .hero-inner { max-width: 58%; }
+      .hero-inner { max-width: min(560px, 52vw); }
       .hero-frame-line { left: 53%; }
     }
     @media (max-width: 640px) {
