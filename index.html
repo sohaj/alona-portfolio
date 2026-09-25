@@ -472,6 +472,23 @@
       width: 5px; height: 1px; background: var(--gold);
     }
 
+    /* Achievement blocks inside a role */
+    .tl-achs { display: flex; flex-direction: column; }
+    .tl-ach {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-ach:last-child { border-bottom: none; padding-bottom: 4px; }
+    .tl-ach-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .tl-ach-body {
+      font-size: 13px; color: var(--text-2); line-height: 1.65;
+    }
+
     /* ── CREDENTIALS ─────────────────────────────────────────────────── */
     #credentials { padding: 100px 0; background: var(--bg-2); }
 
@@ -942,17 +959,32 @@
               <svg class="tl-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
             </div>
             <div class="tl-rb">
-              <ul>
-                <li>Full responsibility for internal structure of a high-volume B2C org — scaled from 50 to 350+ employees</li>
-                <li>Increased company profitability 5.5× (10× over full tenure) through operational excellence</li>
-                <li>Built HR department from scratch: structure, CRM, policies, and full compensation systems</li>
-                <li>Managed payroll for 350+ employees including KPI bonuses and incentive programs</li>
-                <li>Founded internal training centre with peer-based onboarding; cut ramp-up time and budget risk</li>
-                <li>Innovative lead generation approach: 10× conversion improvement and 3–4× customer LTV growth</li>
-                <li>Built QA/Training department; improved call quality and reduced errors via systematic coaching</li>
-                <li>Maintained full company operations during COVID-19, wartime crisis, and operational disruptions</li>
-                <li>Structured 6-month leadership handover prior to relocation to the USA (completed Jan 2026)</li>
-              </ul>
+              <div class="tl-achs">
+                <div class="tl-ach">
+                  <div class="tl-ach-title">COVID Workforce Growth</div>
+                  <div class="tl-ach-body">Developed an operational strategy to maintain 100% in-office operations during COVID, overcoming workforce transportation constraints and enabling continued hiring; grew headcount by 48%, from 250 to 370 employees.</div>
+                </div>
+                <div class="tl-ach">
+                  <div class="tl-ach-title">Employee Training &amp; Retention</div>
+                  <div class="tl-ach-body">Built a structured onboarding and sales training program combining role-specific training, coaching, and team placement; increased 1-year employee retention by 4× compared with direct external hires.</div>
+                </div>
+                <div class="tl-ach">
+                  <div class="tl-ach-title">Data &amp; Lead Security</div>
+                  <div class="tl-ach-body">Implemented a comprehensive security program across internal systems, CRM processes, and data access; reduced lead losses by 97%.</div>
+                </div>
+                <div class="tl-ach">
+                  <div class="tl-ach-title">Sales Performance Development</div>
+                  <div class="tl-ach-body">Built an employee development system combining structured training, QA feedback, and manager coaching to continuously improve sales performance; increased sales efficiency per lead by 2–4×.</div>
+                </div>
+                <div class="tl-ach">
+                  <div class="tl-ach-title">Payroll Process Optimization</div>
+                  <div class="tl-ach-body">Redesigned and streamlined payroll operations as the organization scaled, reducing processing time while supporting significantly higher volume; increased payroll processing efficiency by 12×.</div>
+                </div>
+                <div class="tl-ach">
+                  <div class="tl-ach-title">HR Operations &amp; Organizational Scaling</div>
+                  <div class="tl-ach-body">Built and scaled HR operations from the ground up, establishing recruiting, onboarding, training, and employee development processes that supported 7× company growth, from 50 to 370 employees.</div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="tl-role open">
